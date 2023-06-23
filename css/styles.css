@@ -1,0 +1,73 @@
+/* Ajoute des styles personnalisés ici */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 40px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    margin-top: 20px;
+  }
+  
+  .form-control {
+    margin-bottom: 10px;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0069d9;
+  }
+  
+  #click-count {
+    font-weight: bold;
+  }
+  
+  #group-container {
+    margin-top: 40px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .list-group-item {
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+.material-icons {
+    font-size: 24px;
+    vertical-align: middle;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Work Sans', sans-serif;
+    /* Ajoute d'autres styles de titre si nécessaire */
+  }
+  
+  p, span, div {
+    font-family: 'Open Sans', sans-serif;
+    /* Ajoute d'autres styles de texte si nécessaire */
+  }
+  
+  
