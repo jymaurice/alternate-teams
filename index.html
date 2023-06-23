@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Ducos & Arena Players Group</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mt-5">Ducos & Arena Players Group</h1>
+    <form id="name-form" class="mt-4">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name1" required placeholder="Joueur 1">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name2" required placeholder="Joueur 2">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name3" required placeholder="Joueur 3">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name4" required placeholder="Joueur 4">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name5" required placeholder="Joueur 5">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name6" required placeholder="Joueur 6">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name7" required placeholder="Joueur 7">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name8" required placeholder="Joueur 8">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name9" required placeholder="Joueur 9">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name10" required placeholder="Joueur 10">
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Composer les équipes</button>
+    </form>
+  </div>
+  <div class="container mt-4" id="group-container" style="display: none;">
+    <h2 class="text-center">Equipes</h2>
+    <br>
+    <div class="row">
+      <div class="col-6">
+        <h3>Equipe "Blanc"</h3>
+        <ul id="group1" class="list-group"></ul>
+      </div>
+      <div class="col-6">
+        <h3>Equipe "Couleur"</h3>
+        <ul id="group2" class="list-group"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
