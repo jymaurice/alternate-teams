@@ -8,9 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-  
-
-
   <link rel="stylesheet" href="css/styles.css">
   <title>Alternate Players Teams</title>
 </head>
@@ -84,9 +81,16 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-sm">Composer les équipes - ( Nbr de clics :<span id="click-count"> 0 </span><span>)</span></button>
+      <div class="d-flex flex-column align-items-center mt-3">
+        <button type="submit" class="btn btn-primary btn-sm mb-1">Composer les équipes - ( Nbr de clics :<span id="click-count"> 0 </span><span>)</span></button>
+        <button type="button" class="btn btn-secondary btn-sm" id="reset-button" style="display:none;">Réinitialiser</button>
+      </div>      
     </form>
+    <div id="error-message" class="alert alert-danger mt-3" style="display:none;" role="alert">
+      Veuillez remplir tous les champs pour générer les équipes !
+    </div>
   </div>
+
   <div class="container mt-4" id="group-container" style="display: none;">
     <h2 class="text-center">Composition des équipes</h2>
     <br>
@@ -100,11 +104,11 @@
         <ul id="group2" class="list-group"></ul>
       </div>
     </div>
+    <button type="button" class="btn btn-success btn-sm mt-2" id="share-button" style="display:none;">Partager les équipes</button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-
     let clickCount = 0;
     const playerIndexWithIcon = 0;
 
@@ -112,23 +116,46 @@
       event.preventDefault();
 
       const names = [];
+      let allNamesFilled = true;
+      
       for (let i = 1; i <= 10; i++) {
-        names.push(document.getElementById(`name${i}`).value);
+        const nameValue = document.getElementById(`name${i}`).value;
+        if (!nameValue) {
+          allNamesFilled = false;
+          break;
+        }
+        names.push(nameValue);
+      }
+
+      if (!allNamesFilled) {
+        document.getElementById("error-message").style.display = "block";
+        return;
+      } else {
+        document.getElementById("error-message").style.display = "none";
       }
 
       const shuffledNames = shuffle(names);
-
       const group1 = shuffledNames.slice(0, 5);
       const group2 = shuffledNames.slice(5, 10);
 
       displayGroups(group1, group2);
 
-      // Désactive le bouton "Composer les équipes" et met à jour le nombre de clics
+      document.getElementById("reset-button").style.display = "inline-block";
       const submitButton = document.querySelector("#name-form button[type='submit']");
       submitButton.disabled = true;
       clickCount++;
       document.getElementById("click-count").textContent = clickCount.toString();
+    });
 
+    document.getElementById("reset-button").addEventListener("click", function() {
+      document.getElementById("name-form").reset();
+      document.getElementById("group1").innerHTML = "";
+      document.getElementById("group2").innerHTML = "";
+      document.getElementById("group-container").style.display = "none";
+      document.querySelector("#name-form button[type='submit']").disabled = false;
+      this.style.display = "none";
+      clickCount = 0;
+      document.getElementById("click-count").textContent = clickCount.toString();
     });
 
     function shuffle(array) {
@@ -147,11 +174,7 @@
       group1.forEach((name, index) => {
         const listItem = document.createElement("li");
         listItem.classList.add("list-group-item", "animate__animated", "animate__backInUp");
-        if (index === playerIndexWithIcon) {
-          listItem.innerHTML = `<span class="material-icons">sports_soccer</span>${name}`;
-        } else {
-          listItem.textContent = name;
-        }
+        listItem.textContent = name;
         group1List.appendChild(listItem);
       });
 
@@ -159,18 +182,28 @@
       group2.forEach((name, index) => {
         const listItem = document.createElement("li");
         listItem.classList.add("list-group-item", "animate__animated", "animate__backInUp");
-        if (index === playerIndexWithIcon) {
-          listItem.innerHTML = `<span class="material-icons">sports_soccer</span>${name}`;
-        } else {
-          listItem.textContent = name;
-        }
+        listItem.textContent = name;
         group2List.appendChild(listItem);
       });
 
       document.getElementById("group-container").style.display = "block";
+      document.getElementById("share-button").style.display = "inline-block";  // Afficher le bouton de partage
     }
 
-  </script> 
-  
+    document.getElementById("share-button").addEventListener("click", function() {
+      const group1Names = Array.from(document.querySelectorAll("#group1 li")).map(li => li.textContent.trim());
+      const group2Names = Array.from(document.querySelectorAll("#group2 li")).map(li => li.textContent.trim());
+
+      const message = `
+        Équipe Blanc :\n- ${group1Names.join('\n- ')}\n\n
+        Équipe Couleur :\n- ${group2Names.join('\n- ')}
+      `;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappURL = `https://api.whatsapp.com/send?text=${encodedMessage}`;
+
+      window.open(whatsappURL, '_blank');
+    });
+  </script>
 </body>
 </html>
